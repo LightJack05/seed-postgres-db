@@ -1,0 +1,35 @@
+services:
+  seed_postgres_db:
+    container_name: seed-postgres-db
+    environment:
+      - DATABASE_CONFIG_DB_HOST=test-db
+      - DATABASE_CONFIG_DB_PORT=5432
+      - DATABASE_CONFIG_DB_USER=seed_postgres_db
+      - DATABASE_CONFIG_DB_PASS=4dfef616-220c-4e85-9991-485f9af486e3
+      - DATABASE_CONFIG_DB_NAME=seed_postgres_db
+      - DATABASE_CONFIG_DISABLE_SSL=true
+    build: .
+    volumes:
+      - ./seed.sql:/data/seed.sql
+    depends_on:
+      test-db:
+        condition: service_healthy
+
+  # Postgres Database Service
+  test-db:
+    image: postgres:18
+    container_name: test-db
+    # The credentials below are initial credentials for testing only
+    # DO NOT USE IN PRODUCTION!
+    environment:
+      - POSTGRES_USER=seed_postgres_db
+      - POSTGRES_PASSWORD=4dfef616-220c-4e85-9991-485f9af486e3
+      - POSTGRES_DB=seed_postgres_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/pg/:/var/lib/postgresql/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U seed_postgres_db"]
+      interval: 5s
+      timeout: 2s
