@@ -15,6 +15,7 @@ func main() {
 
 	connectionString := database.GetDatabaseConnectionString()
 	db, err := connectDatabase(connectionString)
+	defer db.Close()
 	if err != nil {
 		panic(err)
 	}
