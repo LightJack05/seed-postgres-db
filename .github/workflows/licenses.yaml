@@ -1,0 +1,27 @@
+name: Licenses
+
+on: pull_request
+
+jobs:
+  licenses:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Update licenses with internal tool
+        run: |
+          nix develop --command bash -c "
+            go-license-collector
+          "
+      - name: Verify all licenses are up-to-date on HEAD 
+        run: if [[ -z "$(git status --porcelain=v1)" ]]; then echo "Licenses are up-to-date!"; else echo "Licenses are not up-to-date!"; exit 1; fi
