@@ -1,0 +1,4 @@
+github.com/SnackLog/database-config-lib v0.2.0 h1:lnuO/nWfVdR4M6iIDt/6/UE8huMwwzQ/AHY4lw4D40M=
+github.com/SnackLog/database-config-lib v0.2.0/go.mod h1:997JZ6UfTIC+ggf0cYUenAEI+bLhl3csKpnkss12BW8=
+github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
+github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
