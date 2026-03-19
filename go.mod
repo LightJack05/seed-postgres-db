@@ -4,5 +4,5 @@ go 1.25.5
 
 require (
 	github.com/SnackLog/database-config-lib v0.2.0
-	github.com/lib/pq v1.10.9
+	github.com/lib/pq v1.12.0
 )
